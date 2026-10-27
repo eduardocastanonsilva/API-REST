@@ -32,9 +32,9 @@ try:
     print("Producto", producto["title"])
     print("Precio", producto["price"])
     print("Categoría", producto["category"])
-# ==========================
-#      2. Método Post
-# ==========================
+    # ==========================
+    #      2. Método Post
+    # ==========================
 
     print("\n POST --- Crear un producto ---")
 
@@ -68,10 +68,8 @@ try:
         json = producto_actualizado,
         timeout=10
     )
-       respuesta.raise_for_status()
-       mostrar_respuesta(respuesta)
-        
-    
+    respuesta.raise_for_status()
+    mostrar_respuesta(respuesta)
 
 except requests.exceptions.timeout:
     print("Error: se agotó el tiempo de espera")
