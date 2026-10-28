@@ -21,6 +21,8 @@ try:
     # ============================
     # 1. GET:Consultar un Producto
     # ============================
+    
+    print("\n GET --- Hacer consulta/obtener respuesta ---")
     respuesta = requests.get(
         f"{BASE_URL}/12",
         timeout=10
@@ -32,6 +34,7 @@ try:
     print("Producto", producto["title"])
     print("Precio", producto["price"])
     print("Categoría", producto["category"])
+    
     # ==========================
     #      2. Método Post
     # ==========================
@@ -54,8 +57,9 @@ try:
     mostrar_respuesta(respuesta)
     
     # ==========================
-    #      2. Método Post
+    #      3. Método Put
     # ==========================
+    
     producto_actualizado = {
         "title": "Notebook para desarrollar",
         "price": 590000,
@@ -71,8 +75,41 @@ try:
     respuesta.raise_for_status()
     mostrar_respuesta(respuesta)
 
+
+    # ==========================
+    #      4. Método PATCH
+    # ==========================
+
+    respuesta = requests.patch(
+        f"{BASE_URL}/1",
+        json ={"price": 599000},
+        timeout=10
+    )
+
+    respuesta.raise_for_status()
+    mostrar_respuesta(respuesta)
+
+     # ==========================
+     #      4. Método DELETE
+     # ==========================
+
+    respuesta = requests.delete(
+            f"{BASE_URL}/1",
+            timeout = 10
+
+    ) 
+    respuesta.raise_for_status()
+    mostrar_respuesta(respuesta)
+
 except requests.exceptions.timeout:
     print("Error: se agotó el tiempo de espera")
+except requests.exceptions.HTTPError as error:
+    print("Error  HTTP: ", error)
+except requests.exceptions.RequestException as error:
+    print("Error en la solicitud", error)
+except (ValueError, KeyError) as error: 
+    print("Error al procesar los datos:", error)
+
     
     
     
